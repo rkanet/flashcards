@@ -129,7 +129,9 @@
     revealed = false;
     showInitialSide();
 
-    card.classList.remove("slide-left", "slide-right");
+    // Reset any transform from swipe
+    card.style.transform = "";
+    card.style.opacity = "";
     counter.textContent = `${currentIndex + 1} / ${filtered.length}  (★${r})`;
   }
 
@@ -177,33 +179,84 @@
     renderCard();
   }
 
-  // ── Swipe ──
+  // ── Tinder-style Swipe ──
   let touchStartX = 0;
   let touchStartY = 0;
+  let touchCurrentX = 0;
+  let isDragging = false;
+  const SWIPE_THRESHOLD = 100; // px to trigger swipe
+  const ROTATION_FACTOR = 0.1; // rotation degrees per px
 
   cardArea.addEventListener("touchstart", (e) => {
-    touchStartX = e.changedTouches[0].clientX;
-    touchStartY = e.changedTouches[0].clientY;
-  });
+    if (filtered.length === 0) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchCurrentX = touchStartX;
+    isDragging = true;
+    card.style.transition = "none";
+  }, { passive: true });
+
+  cardArea.addEventListener("touchmove", (e) => {
+    if (!isDragging || filtered.length === 0) return;
+
+    touchCurrentX = e.touches[0].clientX;
+    const dx = touchCurrentX - touchStartX;
+    const dy = e.touches[0].clientY - touchStartY;
+
+    // If mostly vertical, don't interfere with scroll
+    if (Math.abs(dy) > Math.abs(dx) && Math.abs(dx) < 30) return;
+
+    // Move and rotate card with finger
+    const rotation = dx * ROTATION_FACTOR;
+    card.style.transform = `translateX(${dx}px) rotate(${rotation}deg)`;
+
+    // Opacity based on distance
+    const opacity = Math.max(0.5, 1 - Math.abs(dx) / 300);
+    card.style.opacity = opacity;
+  }, { passive: true });
 
   cardArea.addEventListener("touchend", (e) => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (!isDragging || filtered.length === 0) return;
+    isDragging = false;
+
+    const dx = touchCurrentX - touchStartX;
     const dy = e.changedTouches[0].clientY - touchStartY;
 
-    if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) {
-      // Tap or vertical scroll
-      if (Math.abs(dx) < 10 && Math.abs(dy) < 10) {
-        revealAnswer();
-      }
+    // Reset transition for animation
+    card.style.transition = "transform 0.3s ease, opacity 0.3s ease";
+
+    // Check if it's a tap (minimal movement)
+    if (Math.abs(dx) < 15 && Math.abs(dy) < 15) {
+      card.style.transform = "";
+      card.style.opacity = "";
+      revealAnswer();
       return;
     }
 
-    if (dx < 0) {
-      card.classList.add("slide-left");
-      setTimeout(goNext, 250);
+    // If swipe is strong enough, complete it
+    if (Math.abs(dx) > SWIPE_THRESHOLD) {
+      const direction = dx > 0 ? 1 : -1;
+      const flyOutX = direction * window.innerWidth;
+      const flyOutRotation = direction * 30;
+
+      card.style.transform = `translateX(${flyOutX}px) rotate(${flyOutRotation}deg)`;
+      card.style.opacity = "0";
+
+      setTimeout(() => {
+        card.style.transition = "none";
+        card.style.transform = "";
+        card.style.opacity = "";
+
+        if (direction < 0) {
+          goNext();
+        } else {
+          goPrev();
+        }
+      }, 300);
     } else {
-      card.classList.add("slide-right");
-      setTimeout(goPrev, 250);
+      // Snap back to center
+      card.style.transform = "";
+      card.style.opacity = "";
     }
   });
 

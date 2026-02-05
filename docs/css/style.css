@@ -195,14 +195,10 @@ html, body {
   display: none;
 }
 
-.card.slide-left {
-  transform: translateX(-120%);
-  opacity: 0;
-}
-
-.card.slide-right {
-  transform: translateX(120%);
-  opacity: 0;
+/* Swipe - transform origin for natural rotation */
+.card {
+  transform-origin: center bottom;
+  will-change: transform, opacity;
 }
 
 /* ---------- Rating Buttons ---------- */
