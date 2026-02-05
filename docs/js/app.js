@@ -129,9 +129,6 @@
     revealed = false;
     showInitialSide();
 
-    // Reset any transform from swipe
-    card.style.transform = "";
-    card.style.opacity = "";
     counter.textContent = `${currentIndex + 1} / ${filtered.length}  (★${r})`;
   }
 
@@ -184,11 +181,39 @@
   let touchStartY = 0;
   let touchCurrentX = 0;
   let isDragging = false;
-  const SWIPE_THRESHOLD = 100; // px to trigger swipe
-  const ROTATION_FACTOR = 0.1; // rotation degrees per px
+  let isAnimating = false;
+  const SWIPE_THRESHOLD = 80; // px to trigger swipe
+  const ROTATION_FACTOR = 0.15; // rotation degrees per px
+
+  function animateSwipeOut(direction, onComplete) {
+    isAnimating = true;
+    const flyOutX = direction * (window.innerWidth + 100);
+    const flyOutRotation = direction * 25;
+
+    card.style.transition = "transform 0.25s ease-out, opacity 0.25s ease-out";
+    card.style.transform = `translateX(${flyOutX}px) rotate(${flyOutRotation}deg)`;
+    card.style.opacity = "0";
+
+    setTimeout(() => {
+      // Hide card, reset position instantly
+      card.style.visibility = "hidden";
+      card.style.transition = "none";
+      card.style.transform = "";
+      card.style.opacity = "";
+
+      // Change content
+      onComplete();
+
+      // Show new card (no animation - it's just there)
+      requestAnimationFrame(() => {
+        card.style.visibility = "";
+        isAnimating = false;
+      });
+    }, 250);
+  }
 
   cardArea.addEventListener("touchstart", (e) => {
-    if (filtered.length === 0) return;
+    if (filtered.length === 0 || isAnimating) return;
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
     touchCurrentX = touchStartX;
@@ -197,64 +222,56 @@
   }, { passive: true });
 
   cardArea.addEventListener("touchmove", (e) => {
-    if (!isDragging || filtered.length === 0) return;
+    if (!isDragging || filtered.length === 0 || isAnimating) return;
 
     touchCurrentX = e.touches[0].clientX;
     const dx = touchCurrentX - touchStartX;
     const dy = e.touches[0].clientY - touchStartY;
 
     // If mostly vertical, don't interfere with scroll
-    if (Math.abs(dy) > Math.abs(dx) && Math.abs(dx) < 30) return;
+    if (Math.abs(dy) > Math.abs(dx) * 1.5 && Math.abs(dx) < 20) return;
+
+    // Prevent page scroll when swiping card
+    e.preventDefault();
 
     // Move and rotate card with finger
     const rotation = dx * ROTATION_FACTOR;
     card.style.transform = `translateX(${dx}px) rotate(${rotation}deg)`;
 
-    // Opacity based on distance
-    const opacity = Math.max(0.5, 1 - Math.abs(dx) / 300);
+    // Slight opacity change
+    const opacity = Math.max(0.7, 1 - Math.abs(dx) / 400);
     card.style.opacity = opacity;
-  }, { passive: true });
+  }, { passive: false });
 
   cardArea.addEventListener("touchend", (e) => {
-    if (!isDragging || filtered.length === 0) return;
+    if (!isDragging || filtered.length === 0 || isAnimating) return;
     isDragging = false;
 
     const dx = touchCurrentX - touchStartX;
     const dy = e.changedTouches[0].clientY - touchStartY;
 
-    // Reset transition for animation
-    card.style.transition = "transform 0.3s ease, opacity 0.3s ease";
-
     // Check if it's a tap (minimal movement)
-    if (Math.abs(dx) < 15 && Math.abs(dy) < 15) {
+    if (Math.abs(dx) < 10 && Math.abs(dy) < 10) {
+      card.style.transition = "transform 0.15s ease, opacity 0.15s ease";
       card.style.transform = "";
       card.style.opacity = "";
       revealAnswer();
       return;
     }
 
-    // If swipe is strong enough, complete it
+    // If swipe is strong enough, fly out and show next card
     if (Math.abs(dx) > SWIPE_THRESHOLD) {
       const direction = dx > 0 ? 1 : -1;
-      const flyOutX = direction * window.innerWidth;
-      const flyOutRotation = direction * 30;
-
-      card.style.transform = `translateX(${flyOutX}px) rotate(${flyOutRotation}deg)`;
-      card.style.opacity = "0";
-
-      setTimeout(() => {
-        card.style.transition = "none";
-        card.style.transform = "";
-        card.style.opacity = "";
-
+      animateSwipeOut(direction, () => {
         if (direction < 0) {
           goNext();
         } else {
           goPrev();
         }
-      }, 300);
+      });
     } else {
-      // Snap back to center
+      // Snap back to center with spring effect
+      card.style.transition = "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease";
       card.style.transform = "";
       card.style.opacity = "";
     }
