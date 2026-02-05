@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flashcards Print</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    @page { size: A4; margin: 10mm; }
+
+    .page {
+      width: 190mm;
+      height: 277mm;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(4, 1fr);
+      gap: 2mm;
+      page-break-after: always;
+    }
+
+    .card {
+      border: 1px solid #ccc;
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+    }
+
+    .front, .back {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4mm;
+      text-align: center;
+    }
+
+    .front .main {
+      font-size: 16pt;
+      font-weight: bold;
+    }
+
+    .front .sub {
+      font-size: 11pt;
+      color: #666;
+      margin-top: 2mm;
+    }
+
+    .back .main {
+      font-size: 13pt;
+    }
+
+    .back .sub {
+      font-size: 11pt;
+      color: #555;
+      margin-top: 2mm;
+    }
+
+    .divider {
+      border-top: 1px dashed #999;
+      height: 0;
+    }
+
+    @media print {
+      body { margin: 0; }
+      .page { page-break-after: always; }
+      .page:last-child { page-break-after: auto; }
+    }
+  </style>
+</head>
+<body>
+    <div class="page">
+      <div class="card">
+        <div class="front">
+          <div class="main">new1</div>
+          <div class="sub"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="back">
+          <div class="main"></div>
+          <div class="sub"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="front">
+          <div class="main">new2</div>
+          <div class="sub"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="back">
+          <div class="main"></div>
+          <div class="sub"></div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

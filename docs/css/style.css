@@ -1,0 +1,339 @@
+:root {
+  --bg: #1a1a2e;
+  --bg-card: #16213e;
+  --bg-card-hover: #1a2744;
+  --text: #e0e0e0;
+  --text-muted: #8899aa;
+  --accent: #4fc3f7;
+  --accent-hover: #81d4fa;
+  --border: #2a3a5e;
+  --success: #66bb6a;
+  --warning: #ffa726;
+  --danger: #ef5350;
+  --radius: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ---------- Header ---------- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+
+.header h1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.header .counter {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ---------- Banner ---------- */
+.banner {
+  display: none;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: #000;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.banner.visible {
+  display: block;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  display: flex;
+  gap: 8px;
+  padding: 10px 16px;
+  flex-wrap: wrap;
+  background: var(--bg);
+}
+
+.btn {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn:hover {
+  background: var(--bg-card-hover);
+}
+
+.btn.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
+/* ---------- Card Area ---------- */
+.card-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  min-height: 280px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  position: relative;
+}
+
+/* ---------- Card Sides ---------- */
+.side {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.side.visible {
+  display: flex;
+}
+
+/* Strana 1: EN */
+.side-en .en-word {
+  font-size: 32px;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.side-en .en-pron {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+.side-en .en-pron:empty {
+  display: none;
+}
+
+.side-en .en-example {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-top: 16px;
+  word-break: break-word;
+}
+
+.side-en .en-example:empty {
+  display: none;
+}
+
+/* Strana 2: CZ + meaning + example */
+.side-cz .cz-word {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--accent);
+  word-break: break-word;
+}
+
+.side-cz .cz-meaning {
+  font-size: 18px;
+  color: var(--text);
+  margin-top: 16px;
+  word-break: break-word;
+}
+
+.side-cz .cz-meaning:empty {
+  display: none;
+}
+
+.side-cz .cz-example {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-top: 12px;
+  word-break: break-word;
+}
+
+.side-cz .cz-example:empty {
+  display: none;
+}
+
+.card.slide-left {
+  transform: translateX(-120%);
+  opacity: 0;
+}
+
+.card.slide-right {
+  transform: translateX(120%);
+  opacity: 0;
+}
+
+/* ---------- Rating Buttons ---------- */
+.rating-bar {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+.rating-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.rating-btn:hover {
+  border-color: var(--accent);
+}
+
+.rating-btn[data-rating="1"],
+.rating-btn[data-rating="2"] {
+  border-color: var(--danger);
+}
+
+.rating-btn[data-rating="3"] {
+  border-color: var(--warning);
+}
+
+.rating-btn[data-rating="4"],
+.rating-btn[data-rating="5"] {
+  border-color: var(--success);
+}
+
+/* ---------- Navigation ---------- */
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px 16px 20px;
+}
+
+.nav-btn {
+  padding: 10px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.nav-btn:hover {
+  background: var(--bg-card-hover);
+}
+
+/* ---------- Settings Modal ---------- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.visible {
+  display: flex;
+}
+
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  width: 90%;
+  max-width: 360px;
+}
+
+.modal h2 {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.modal label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.modal input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.modal .close-btn {
+  margin-top: 16px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ---------- Empty state ---------- */
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 16px;
+  padding: 40px;
+}
+
+/* ---------- Layout ---------- */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

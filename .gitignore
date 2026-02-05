@@ -1,0 +1,23 @@
+# Lock files
+data/.~lock.*
+*.~lock.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.temp

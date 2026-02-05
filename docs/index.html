@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#16213e">
+  <title>Flashcards</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>Flashcards</h1>
+      <span class="counter" id="counter"></span>
+      <button class="btn" id="settingsBtn">&#9881;</button>
+    </header>
+
+    <div class="banner" id="banner">New data available – tap to reload</div>
+
+    <div class="controls" id="controls">
+      <button class="btn active" data-filter="all">All</button>
+      <button class="btn" data-filter="weak">Weak 1–2</button>
+      <button class="btn" data-filter="medium">Medium 3</button>
+      <button class="btn" data-filter="strong">Strong 4–5</button>
+      <button class="btn" id="shuffleBtn">Shuffle</button>
+      <button class="btn" id="modeBtn">EN → CZ</button>
+    </div>
+
+    <div class="card-area" id="cardArea">
+      <div class="card" id="card">
+        <!-- Strana 1: EN slovo -->
+        <div class="side side-en" id="sideEn">
+          <div class="en-word" id="enWord"></div>
+          <div class="en-pron" id="enPron"></div>
+          <div class="en-example" id="enExample"></div>
+        </div>
+        <!-- Strana 2: CZ, meaning, example -->
+        <div class="side side-cz" id="sideCz">
+          <div class="cz-word" id="czWord"></div>
+          <div class="cz-meaning" id="czMeaning"></div>
+          <div class="cz-example" id="czExample"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rating-bar" id="ratingBar">
+      <button class="rating-btn" data-rating="1">1</button>
+      <button class="rating-btn" data-rating="2">2</button>
+      <button class="rating-btn" data-rating="3">3</button>
+      <button class="rating-btn" data-rating="4">4</button>
+      <button class="rating-btn" data-rating="5">5</button>
+    </div>
+
+    <div class="nav">
+      <button class="nav-btn" id="prevBtn">&#8592; Prev</button>
+      <button class="nav-btn" id="nextBtn">Next &#8594;</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h2>Settings</h2>
+      <p style="color: var(--text-muted); font-size: 14px;">Use mode button to switch between EN→CZ and CZ→EN</p>
+      <button class="close-btn" id="closeModal">Close</button>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+[
+  {
+    "en": "hello",
+    "pron": "həˈloʊ",
+    "meaning_en": "a greeting",
+    "example": "Hello, how are you today?",
+    "cz": "ahoj",
+    "rating": 3,
+    "note": "common word"
+  },
+  {
+    "en": "dog",
+    "pron": "dɔːɡ",
+    "meaning_en": "a domestic animal",
+    "example": "The dog is playing in the park.",
+    "cz": "pes",
+    "rating": 2,
+    "note": ""
+  },
+  {
+    "en": "book",
+    "pron": "bʊk",
+    "meaning_en": "a written work",
+    "example": "I am reading an interesting book.",
+    "cz": "kniha",
+    "rating": 4,
+    "note": ""
+  },
+  {
+    "en": "water",
+    "pron": "ˈwɔːtər",
+    "meaning_en": "a clear liquid",
+    "example": "Can I have a glass of water, please?",
+    "cz": "voda",
+    "rating": 1,
+    "note": "essential"
+  },
+  {
+    "en": "house",
+    "pron": "haʊs",
+    "meaning_en": "a building for living",
+    "example": "They live in a big house.",
+    "cz": "dům",
+    "rating": 1,
+    "note": ""
+  },
+  {
+    "en": "car",
+    "pron": "kɑːr",
+    "meaning_en": "a motor vehicle",
+    "example": "She drives a red car to work.",
+    "cz": "auto",
+    "rating": 5,
+    "note": ""
+  },
+  {
+    "en": "tree",
+    "pron": "triː",
+    "meaning_en": "a tall plant",
+    "example": "The tree in our garden is very old.",
+    "cz": "strom",
+    "rating": 1,
+    "note": "nature"
+  },
+  {
+    "en": "sun",
+    "pron": "sʌn",
+    "meaning_en": "the star in our sky",
+    "example": "The sun is shining brightly.",
+    "cz": "slunce",
+    "rating": 2,
+    "note": ""
+  },
+  {
+    "en": "food",
+    "pron": "fuːd",
+    "meaning_en": "something to eat",
+    "example": "This restaurant serves delicious food.",
+    "cz": "jídlo",
+    "rating": 1,
+    "note": ""
+  },
+  {
+    "en": "time",
+    "pron": "taɪm",
+    "meaning_en": "a measure of duration",
+    "example": "What time is it?",
+    "cz": "čas",
+    "rating": 3,
+    "note": "abstract"
+  }
+]
