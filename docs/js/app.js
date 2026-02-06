@@ -68,7 +68,7 @@
     if (filtered.length === 0) {
       card.style.display = "none";
       cardArea.innerHTML =
-        '<div class="empty-state">No cards match the filter.</div>';
+        '<div class="empty-state">No cards available.</div>';
       counter.textContent = "0 / 0";
       return;
     }
@@ -264,7 +264,6 @@
         break;
     }
   });
-
 
   // ── Shuffle ──
   document.getElementById("shuffleBtn").addEventListener("click", () => {

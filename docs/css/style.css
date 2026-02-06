@@ -5,11 +5,9 @@
   --text: #e0e0e0;
   --text-muted: #8899aa;
   --accent: #4fc3f7;
-  --accent-hover: #81d4fa;
   --border: #2a3a5e;
   --success: #66bb6a;
   --warning: #ffa726;
-  --danger: #ef5350;
   --radius: 12px;
 }
 
@@ -91,12 +89,6 @@ html, body {
 
 .btn:hover {
   background: var(--bg-card-hover);
-}
-
-.btn.active {
-  background: var(--accent);
-  color: #000;
-  border-color: var(--accent);
 }
 
 #shuffleBtn {
@@ -272,21 +264,6 @@ html, body {
 .modal h2 {
   font-size: 18px;
   margin-bottom: 16px;
-}
-
-.modal label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.modal input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--accent);
 }
 
 .modal .close-btn {
