@@ -16,7 +16,7 @@ ROOT_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, "..", ".."))
 
 REQUIRED_COLUMNS = {"en"}
 ALL_COLUMNS = ["en", "pron", "meaning_en", "example", "cz", "rating", "printed_at", "note"]
-EXPORT_COLUMNS = [c for c in ALL_COLUMNS if c != "printed_at"]
+EXPORT_COLUMNS = [c for c in ALL_COLUMNS if c not in ("printed_at", "rating")]
 
 
 def load_config():
@@ -53,28 +53,15 @@ def read_excel(excel_path):
         for col_name in EXPORT_COLUMNS:
             if col_name in col_map:
                 val = row[col_map[col_name]]
-                if col_name == "rating":
-                    val = clamp_rating(val)
-                else:
-                    val = str(val).strip() if val is not None else ""
+                val = str(val).strip() if val is not None else ""
                 word[col_name] = val
             else:
-                word[col_name] = "" if col_name != "rating" else 1
+                word[col_name] = ""
 
         words.append(word)
 
     wb.close()
     return words
-
-
-def clamp_rating(val):
-    if val is None or val == "" or val == "None":
-        return 1
-    try:
-        r = int(float(val))
-    except (ValueError, TypeError):
-        return 1
-    return max(1, min(5, r))
 
 
 def write_vocab_json(words, path):
@@ -95,15 +82,9 @@ def write_latest_json(count, path):
 
 def write_report_json(words, path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    no_rating = sum(1 for w in words if w.get("rating") == 1)
     report = {
         "exported_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"),
         "total_words": len(words),
-        "words_without_rating": no_rating,
-        "rating_distribution": {
-            str(r): sum(1 for w in words if w.get("rating") == r)
-            for r in range(1, 6)
-        },
     }
     with open(path, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)

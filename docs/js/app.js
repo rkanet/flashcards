@@ -9,31 +9,10 @@
   // mode: "en" = EN→CZ (show EN first, click reveals CZ side)
   // mode: "cz" = CZ→EN (show CZ side first, click reveals EN)
   let mode = "en";
-  let activeFilter = "all";
   let savedVersion = null;
 
   // ── localStorage helpers ──
-  const LS_RATINGS = "flashcards_ratings";
   const LS_VERSION = "flashcards_version";
-
-  function loadLocalRatings() {
-    try {
-      return JSON.parse(localStorage.getItem(LS_RATINGS) || "{}");
-    } catch (e) {
-      return {};
-    }
-  }
-
-  function saveLocalRating(en, rating) {
-    const ratings = loadLocalRatings();
-    ratings[en] = rating;
-    localStorage.setItem(LS_RATINGS, JSON.stringify(ratings));
-  }
-
-  function getEffectiveRating(word) {
-    const local = loadLocalRatings();
-    return local[word.en] !== undefined ? local[word.en] : word.rating;
-  }
 
   // ── DOM refs ──
   const counter = document.getElementById("counter");
@@ -46,7 +25,6 @@
   const czWord = document.getElementById("czWord");
   const czMeaning = document.getElementById("czMeaning");
   const czExample = document.getElementById("czExample");
-  const ratingBar = document.getElementById("ratingBar");
   const banner = document.getElementById("banner");
   const cardArea = document.getElementById("cardArea");
   const modeBtn = document.getElementById("modeBtn");
@@ -80,19 +58,7 @@
 
   // ── Filtering ──
   function applyFilter() {
-    filtered = allWords.filter((w) => {
-      const r = getEffectiveRating(w);
-      switch (activeFilter) {
-        case "weak":
-          return r <= 2;
-        case "medium":
-          return r === 3;
-        case "strong":
-          return r >= 4;
-        default:
-          return true;
-      }
-    });
+    filtered = allWords.slice();
     currentIndex = 0;
     revealed = false;
   }
@@ -115,7 +81,6 @@
     card.style.display = "";
 
     const w = filtered[currentIndex];
-    const r = getEffectiveRating(w);
 
     // Fill both sides with data
     enWord.textContent = w.en;
@@ -129,7 +94,7 @@
     revealed = false;
     showInitialSide();
 
-    counter.textContent = `${currentIndex + 1} / ${filtered.length}  (★${r})`;
+    counter.textContent = `${currentIndex + 1} / ${filtered.length}`;
   }
 
   function showInitialSide() {
@@ -297,41 +262,9 @@
         e.preventDefault();
         revealAnswer();
         break;
-      case "1":
-      case "2":
-      case "3":
-      case "4":
-      case "5":
-        rateCurrentCard(parseInt(e.key));
-        break;
     }
   });
 
-  // ── Rating ──
-  function rateCurrentCard(rating) {
-    if (filtered.length === 0) return;
-    const w = filtered[currentIndex];
-    saveLocalRating(w.en, rating);
-    goNext();
-  }
-
-  ratingBar.addEventListener("click", (e) => {
-    const btn = e.target.closest(".rating-btn");
-    if (!btn) return;
-    rateCurrentCard(parseInt(btn.dataset.rating));
-  });
-
-  // ── Filter buttons ──
-  document.getElementById("controls").addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-filter]");
-    if (!btn) return;
-
-    document.querySelectorAll("[data-filter]").forEach((b) => b.classList.remove("active"));
-    btn.classList.add("active");
-    activeFilter = btn.dataset.filter;
-    applyFilter();
-    renderCard();
-  });
 
   // ── Shuffle ──
   document.getElementById("shuffleBtn").addEventListener("click", () => {

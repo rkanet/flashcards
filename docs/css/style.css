@@ -49,6 +49,11 @@ html, body {
   color: var(--text-muted);
 }
 
+#settingsBtn {
+  font-size: 20px;
+  line-height: 1;
+}
+
 /* ---------- Banner ---------- */
 .banner {
   display: none;
@@ -68,7 +73,7 @@ html, body {
 .controls {
   display: flex;
   gap: 8px;
-  padding: 10px 16px;
+  padding: 20px 16px;
   flex-wrap: wrap;
   background: var(--bg);
 }
@@ -92,6 +97,22 @@ html, body {
   background: var(--accent);
   color: #000;
   border-color: var(--accent);
+}
+
+#shuffleBtn {
+  border-color: var(--warning);
+  border-radius: var(--radius);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  transition: background 0.15s;
+}
+
+#modeBtn {
+  border-color: var(--success);
+  border-radius: var(--radius);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  transition: background 0.15s;
 }
 
 /* ---------- Card Area ---------- */
@@ -199,45 +220,6 @@ html, body {
 .card {
   transform-origin: center bottom;
   will-change: transform, opacity;
-}
-
-/* ---------- Rating Buttons ---------- */
-.rating-bar {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 16px;
-}
-
-.rating-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  background: var(--bg-card);
-  color: var(--text);
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.rating-btn:hover {
-  border-color: var(--accent);
-}
-
-.rating-btn[data-rating="1"],
-.rating-btn[data-rating="2"] {
-  border-color: var(--danger);
-}
-
-.rating-btn[data-rating="3"] {
-  border-color: var(--warning);
-}
-
-.rating-btn[data-rating="4"],
-.rating-btn[data-rating="5"] {
-  border-color: var(--success);
 }
 
 /* ---------- Navigation ---------- */

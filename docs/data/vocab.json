@@ -1,92 +1,50 @@
 [
   {
-    "en": "hello",
-    "pron": "həˈloʊ",
-    "meaning_en": "a greeting",
-    "example": "Hello, how are you today?",
-    "cz": "ahoj",
-    "rating": 3,
-    "note": "common word"
-  },
-  {
-    "en": "dog",
-    "pron": "dɔːɡ",
-    "meaning_en": "a domestic animal",
-    "example": "The dog is playing in the park.",
-    "cz": "pes",
-    "rating": 2,
+    "en": "decay",
+    "pron": "/dɪˈkeɪ/",
+    "meaning_en": "to become gradually damaged, worse, or less;",
+    "example": "Floating in the dirty river were dead fish, already starting to decay.",
+    "cz": "rozklad, úpadek",
     "note": ""
   },
   {
-    "en": "book",
-    "pron": "bʊk",
-    "meaning_en": "a written work",
-    "example": "I am reading an interesting book.",
-    "cz": "kniha",
-    "rating": 4,
+    "en": "decensy",
+    "pron": "/ˈdiː.sən.si/",
+    "meaning_en": "behaviour that is good, moral, and acceptable in society",
+    "example": "She didn't even have the decency to apologize",
+    "cz": "slušnost",
     "note": ""
   },
   {
-    "en": "water",
-    "pron": "ˈwɔːtər",
-    "meaning_en": "a clear liquid",
-    "example": "Can I have a glass of water, please?",
-    "cz": "voda",
-    "rating": 1,
-    "note": "essential"
-  },
-  {
-    "en": "house",
-    "pron": "haʊs",
-    "meaning_en": "a building for living",
-    "example": "They live in a big house.",
-    "cz": "dům",
-    "rating": 1,
+    "en": "hospitality",
+    "pron": "/ˌhɒs.pɪˈtæl.ə.ti/",
+    "meaning_en": "the act of being friendly and welcoming to guests and visitors",
+    "example": "The local people showed me great hospitality.",
+    "cz": "pohostinnost",
     "note": ""
   },
   {
-    "en": "car",
-    "pron": "kɑːr",
-    "meaning_en": "a motor vehicle",
-    "example": "She drives a red car to work.",
-    "cz": "auto",
-    "rating": 5,
+    "en": "bash",
+    "pron": "/bæʃ/",
+    "meaning_en": "to hit hard",
+    "example": "The swinging door bashed him in the face.",
+    "cz": "udeřit",
     "note": ""
   },
   {
-    "en": "tree",
-    "pron": "triː",
-    "meaning_en": "a tall plant",
-    "example": "The tree in our garden is very old.",
-    "cz": "strom",
-    "rating": 1,
-    "note": "nature"
-  },
-  {
-    "en": "sun",
-    "pron": "sʌn",
-    "meaning_en": "the star in our sky",
-    "example": "The sun is shining brightly.",
-    "cz": "slunce",
-    "rating": 2,
+    "en": "zoom (down)",
+    "pron": "/zuːm/",
+    "meaning_en": "to move very quickly (down)",
+    "example": "Cars were zooming [=speeding] down the highway.",
+    "cz": "řítit se (dolů)",
     "note": ""
   },
   {
-    "en": "food",
-    "pron": "fuːd",
-    "meaning_en": "something to eat",
-    "example": "This restaurant serves delicious food.",
-    "cz": "jídlo",
-    "rating": 1,
+    "en": "mesmerize(d)",
+    "pron": "/ˈmez.mə.raɪz/",
+    "meaning_en": "to have someone's attention completely so that they cannot think of anything else",
+    "example": "I was completely mesmerized by the performance.",
+    "cz": "fascinovat (fascinovaný)",
     "note": ""
-  },
-  {
-    "en": "time",
-    "pron": "taɪm",
-    "meaning_en": "a measure of duration",
-    "example": "What time is it?",
-    "cz": "čas",
-    "rating": 3,
-    "note": "abstract"
   }
 ]
